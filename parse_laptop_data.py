@@ -1,5 +1,3 @@
-
-
 """
 Below is a dictionary of the top 2 laptops of 2020 as reviewed by Tech Crunch.
 
@@ -8,6 +6,7 @@ so the data has been ported in as is.
 
 Our goal is to be able to parse this data with code, so that we can utilize it in our code.
 """
+
 
 laptops = [
         {
@@ -66,6 +65,7 @@ laptops = [
 
 
 # 1.1 TODO: Print out the MacBook Pro url
+print(laptops[0]["url"])
 
 
 # 1.2 TODO: Write a function called `print_laptop_data` that takes in two parameters: `laptop` and `topic`, and returns nothing.
@@ -87,31 +87,61 @@ laptops = [
 #   So, for instance:
 #   Dell XPS ram: ["8GB", "16GB", "32GB", "64GB"]
 
+def print_laptop_data(laptop,topic):
+    for lap in laptops:
+        if lap["productName"] == laptop:
+            print(f"{laptop} {topic}: {lap['types'][0][topic]}")
+
 
 # 1.3 TODO: Call your function 3 times to print out:
 #   1.3.1: All possible prices of the Apple Macbook Pro.
 #   1.3.2: All the color options for the Dell XPS.
 #   1.3.3: The screen_size of the Dell XPS.
+print_laptop_data("Apple Macbook Pro","price")
+print_laptop_data("Dell XPS","colors")
+print_laptop_data("Dell XPS","screen_size")
 
 
 # 2.1 TODO: Write a function called `list_prices` that takes one parameter: a list of computers, and returns nothing.
 #   Using nested loops, the function should print out all possible computer prices, one price on each line.
 #   No need to specify which computer each price belongs to.
+#def list_prices(lst_computers):
+    #for i in range(len(lst_computers)):
+        #for lap in laptops[i]["types"]:
+            #print(lap["price"])
+def list_prices(lst_computers):
+    for i in range(len(lst_computers)):
+        for lap in laptops[i]["types"]:
+            for price in lap["price"]:
+                print(price)
 
 
 # 2.2 TODO: Call your function to see that it works.
-
+list_prices(["Apple Macbook Pro","Dell XPS"])
 
 # 3.0 Suppose that the two versions of the 16-inch MacBook Pro are no longer available:
 #   - In the color 'space gray'
 #   - With '1 TB SSD' storage
 
 # 3.1 TODO: Update the `laptops` dictionary to reflect these changes.
-
+laptops[0]["types"][1]["colors"].pop(0)
+laptops[0]["types"][1]["storage"].pop()
 
 # 3.2 TODO: Print out the Macbook Pro dictionary to see the changes.
-
+print(laptops[0])
 
 # BONUS TODO: Write a function called `get_price_range` that returns the minimum and maximum prices out of all the options.
 
-# ^ Expected outcome: (999, 2799)
+# ^ Expected outcome: (999, 2799)and paste your work, or start typing.
+
+def get_price_range():
+    prices = []
+    for lap in laptops:
+        for item in lap["types"]:
+            prices += item["price"]
+    return (min(prices),max(prices))
+
+print(get_price_range())
+
+
+
